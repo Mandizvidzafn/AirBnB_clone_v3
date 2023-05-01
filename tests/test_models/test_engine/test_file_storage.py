@@ -67,6 +67,26 @@ test_file_storage.py'])
             self.assertTrue(len(func[1].__doc__) >= 1,
                             "{:s} method needs a docstring".format(func[0]))
 
+    def test_get_returns_object(self):
+        # test that the get method returns the correct object
+        result = self.obj.get("ClassName", 1)
+        self.assertEqual(result.id, 1)
+
+    def test_get_returns_none(self):
+        # test that the get method returns None if object is not found
+        result = self.obj.get("ClassName", 99)
+        self.assertIsNone(result)
+
+    def test_count_with_cls(self):
+        # test that the count method returns the correct number of objects for a given class
+        result = self.obj.count("ClassName")
+        self.assertEqual(result, 10)
+
+    def test_count_without_cls(self):
+        # test that the count method returns the correct number of objects for all classes
+        result = self.obj.count()
+        self.assertEqual(result, 20)
+
 
 class TestFileStorage(unittest.TestCase):
     """Test the FileStorage class"""
